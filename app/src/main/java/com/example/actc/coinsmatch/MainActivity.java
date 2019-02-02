@@ -3,8 +3,6 @@ package com.example.actc.coinsmatch;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.GridLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,19 +27,19 @@ public class MainActivity extends AppCompatActivity {
         counter.setTranslationY(-1500);
         if (flag == false) {
             //// yellow turn
-            counter.setImageResource(R.drawable.goldcoin);
+            counter.setImageResource(R.drawable.bitcoins);
             memory[tagTemp] = 0;
             flag = true;
             checkResult();
         } else {
             /// red turn
-            counter.setImageResource(R.drawable.coinred);
+            counter.setImageResource(R.drawable.redcoins);
             memory[tagTemp] = 1;
             flag = false;
             checkResult();
 
         }
-        counter.animate().translationY(30).setDuration(500);
+        counter.animate().translationY(30).rotationX(3600).setDuration(600);
         if (numTurn == 0)
             checkResult();
     }
