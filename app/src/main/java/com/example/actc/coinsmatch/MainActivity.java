@@ -3,101 +3,103 @@ package com.example.actc.coinsmatch;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    int numTurn=9;
-    int []memory={2,2,2,
-                  2,2,2,
-                  2,2,2};
-    int tagTemp=00; // this is just the initial value
-    boolean flag=false; // 0 if its yello tern
+    int numTurn = 9;
+    TextView txtWinner;
+    android.support.v7.widget.GridLayout countersGridView;
+    int[] memory = {4, 4, 4,
+            4, 4, 4,
+            4, 4, 4};
+    int tagTemp = 00; // this is just the initial value
+    boolean flag = false; // 0 if its yello tern
+
     /// The process for this method is to drop the image view off the screaan
     // then set the recourcse image for the image view
     //  drop it back again !
     public void dropIn(View view) {
         numTurn--;
-        ImageView counter = (ImageView) view;
-        tagTemp= Integer.parseInt(counter.getTag().toString());
 
+        ImageView counter = (ImageView) view;
+        tagTemp = Integer.parseInt(counter.getTag().toString());
         counter.setTranslationY(-1500);
-        if (flag==false) {
+        if (flag == false) {
             //// yellow turn
             counter.setImageResource(R.drawable.goldcoin);
-            memory[tagTemp]=0;
+            memory[tagTemp] = 0;
             flag = true;
-
-
-        }
-        else {
+            checkResult();
+        } else {
             /// red turn
             counter.setImageResource(R.drawable.coinred);
-            memory[tagTemp]=1;
-            flag=false;
+            memory[tagTemp] = 1;
+            flag = false;
+            checkResult();
+
         }
-        System.out.println("test1 "+tagTemp+"    test2   "+memory[tagTemp]);
-
-
         counter.animate().translationY(30).setDuration(500);
-        if (numTurn==0){
-           // Toast.makeText(MainActivity.this, "The end ", Toast.LENGTH_LONG).show();
-            ShowResult();
-                }
+        if (numTurn == 0)
+            checkResult();
     }
 
 
-    public void ShowResult(){
-        if(memory[0]+memory[1]+memory[2]==3 || memory[0]+memory[3]+memory[6]==3||
-                memory[0]+memory[4]+memory[8]==3 ){
-
-            Toast.makeText(MainActivity.this, "Red win  ", Toast.LENGTH_LONG).show();
+    public void checkResult() {
+        if (memory[0] + memory[1] + memory[2] == 3 || memory[0] + memory[3] + memory[6] == 3 ||
+                memory[0] + memory[4] + memory[8] == 3) {
+            txtWinner.setText("Red win  ");
         }
-        if(memory[0]+memory[1]+memory[2]==3 || memory[1]+memory[4]+memory[7]==3||
-                memory[2]+memory[5]+memory[8]==3 ){
-
-            Toast.makeText(MainActivity.this, "Red win  ", Toast.LENGTH_LONG).show();
+        if (memory[0] + memory[1] + memory[2] == 3 || memory[1] + memory[4] + memory[7] == 3 ||
+                memory[2] + memory[5] + memory[8] == 3) {
+            txtWinner.setText("Red win  ");
         }
-
-        if(memory[2]+memory[4]+memory[6]==3 ){
-
-            Toast.makeText(MainActivity.this, "Red win  ", Toast.LENGTH_LONG).show();
+        if (memory[2] + memory[4] + memory[6] == 3) {
+            txtWinner.setText("Red win  ");
         }
+        if (memory[0] + memory[1] + memory[2] == 3 || memory[0] + memory[3] + memory[6] == 3 ||
+                memory[0] + memory[4] + memory[8] == 0) {
+            txtWinner.setText("Yellow win  ");
 
-        ///----------------------
-
-
-        if(memory[0]+memory[1]+memory[2]==3 || memory[0]+memory[3]+memory[6]==3||
-                memory[0]+memory[4]+memory[8]==0 ){
-
-            Toast.makeText(MainActivity.this, "Yellow win  ", Toast.LENGTH_LONG).show();
         }
-        if(memory[0]+memory[1]+memory[2]==3 || memory[1]+memory[4]+memory[7]==3||
-                memory[2]+memory[5]+memory[8]==0 ){
-
-            Toast.makeText(MainActivity.this, "Yellow win  ", Toast.LENGTH_LONG).show();
+        if (memory[0] + memory[1] + memory[2] == 3 || memory[1] + memory[4] + memory[7] == 3 ||
+                memory[2] + memory[5] + memory[8] == 0) {
+            txtWinner.setText("Yellow win  ");
         }
 
-        if(memory[2]+memory[4]+memory[6]==0 ){
-
-            Toast.makeText(MainActivity.this, "Yellow win  ", Toast.LENGTH_LONG).show();
+        if (memory[2] + memory[4] + memory[6] == 0) {
+            txtWinner.setText("Yellow win  ");
         }
-
-
-
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        txtWinner = findViewById(R.id.txtWinner);
+        countersGridView = (android.support.v7.widget.GridLayout)findViewById(R.id.gridLayout);
+    }
+
+    public void playAgain(View view) {
+        numTurn = 9;
+        tagTemp = 00;
+        flag = false;
+        memory = new int[]{4, 4, 4,
+                4, 4, 4,
+                4, 4, 4};
+        // Loop through all element in the grid view to remove the coins from it !
+
+        for (int i = 0; i < countersGridView.getChildCount(); i++) {
+            ImageView counter = (ImageView) countersGridView.getChildAt(i);
+            counter.setImageResource(0);
+
+
+        }
 
 
     }
 
-    public void myFaddingMethod(View view) {
 
-
-    }
 }
