@@ -11,11 +11,11 @@ public class MainActivity extends AppCompatActivity {
     TextView txtWinner;
     ImageView imdWinner ;
     android.support.v7.widget.GridLayout countersGridView;
-    int[] memory = {4, 4, 4,
-            4, 4, 4,
-            4, 4, 4};
+    int[] memory = {99, 99, 99,
+            99, 99, 99,
+            99, 99, 99}; //// this is just initial value  to see that its not selected yet
     int tagTemp = 00; // this is just the initial value
-    boolean flag = false; // 0 if its yello tern
+    boolean flag = false; // 0 if its yellow turn
 
     /// The process for this method is to drop the image view off the screaan
     // then set the recourcse image for the image view
